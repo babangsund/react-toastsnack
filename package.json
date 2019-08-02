@@ -1,0 +1,45 @@
+{
+  "name": "react-toastsnack",
+  "version": "0.1.0",
+  "description": "Notification snackbars (toasts) for React.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/babangsund/react-toastsnack.git"
+  },
+  "keywords": [
+    "react",
+    "toast",
+    "snack",
+    "toast",
+    "snackbar",
+    "notification"
+  ],
+  "author": "babangsund",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/babangsund/react-toastsnack/issues"
+  },
+  "homepage": "https://github.com/babangsund/react-toastsnack#readme",
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
+    "@babel/runtime": "^7.5.5",
+    "babel-eslint": "^10.0.2",
+    "babel-preset-fbjs": "^3.2.0",
+    "eslint": "^6.1.0",
+    "eslint-config-fbjs": "^3.1.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-flowtype": "^3.13.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "fbjs": "^1.0.0",
+    "flow-bin": "^0.104.0",
+    "jest": "^24.8.0",
+    "prettier": "^1.18.2",
+    "react": "^16.8.6"
+  }
+}
