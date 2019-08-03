@@ -38,8 +38,7 @@ const cjs = {
   output: {
     globals,
     format: 'cjs',
-    dir: 'lib/',
-    //file: pkg.main,
+    file: pkg.main,
   },
   plugins: makePlugins(true, false),
 };

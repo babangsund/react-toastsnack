@@ -1,51 +1,55 @@
 // @flow
+
+'use strict';
+
 import React from 'react';
 
 import ReactToastSnackQueue from './ReactToastSnackQueue';
 import ReactToastSnackContext from './ReactToastSnackContext';
-import type {ReactToastSnackProviderProps} from './ReactToastSnackTypes.js';
+import ReactToastSnackReducer from './ReactToastSnackReducer';
+import type {
+  ToastSnack,
+  ReactToastSnackProviderProps,
+} from './ReactToastSnackTypes.js';
 
 function ReactToastSnackProvider({
+  max,
+  initial,
+  dismiss,
   children,
   renderer,
-  initial,
+  defaultHeight,
+  defaultDuration,
 }: ReactToastSnackProviderProps) {
-  const queue = React.useRef(new ReactToastSnackQueue(initial));
-  const [toastSnacks, setToastSnacks] = React.useState([]);
+  const [toastSnacks, dispatch] = React.useReducer(ReactToastSnackReducer, []);
+  const Q = React.useRef(
+    new ReactToastSnackQueue(
+      initial,
+      max,
+      dismiss,
+      defaultHeight,
+      defaultDuration,
+    ),
+  );
 
   const onCreate = React.useCallback(input => {
-    const Q = queue.current;
+    const queue = Q.current;
 
-    const id = Q.enqueue(input);
-    const toastSnack = Q.dequeue();
+    dispatch({queue, type: 'enqueue', input});
 
-    if (toastSnack !== null) {
-      setToastSnacks(toastSnacks => [...toastSnacks, toastSnack]);
-    }
-
-    return id;
+    return queue.peek();
   }, []);
 
   const onUpdate = React.useCallback(input => {
-    setToastSnacks(toastSnacks =>
-      toastSnacks.map(toastSnack => {
-        if (toastSnack.getId() === input.id) {
-          toastSnack.setOptions(input.options);
-        }
-        return toastSnack;
-      }),
-    );
+    const queue = Q.current;
+
+    dispatch({queue, type: 'update', input});
   }, []);
 
-  const onDelete = React.useCallback(id => {
-    setToastSnacks(toastSnacks =>
-      toastSnacks.map(toastSnack => {
-        if (toastSnack.getId() === id) {
-          toastSnack.setOptions({...toastSnack.getOptions(), open: false});
-        }
-        return toastSnack;
-      }),
-    );
+  const onDelete = React.useCallback((id: string) => {
+    const queue = Q.current;
+
+    dispatch({queue, type: 'dequeue', input: {id}});
   }, []);
 
   const context = React.useMemo(
@@ -60,7 +64,9 @@ function ReactToastSnackProvider({
   return (
     <ReactToastSnackContext.Provider value={context}>
       {children}
-      {toastSnacks.map(renderer)}
+      {toastSnacks.map(toastSnack => {
+        return React.createElement(renderer, toastSnack);
+      })}
     </ReactToastSnackContext.Provider>
   );
 }

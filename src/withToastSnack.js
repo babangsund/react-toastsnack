@@ -1,4 +1,7 @@
 // @flow
+
+'use strict';
+
 import React from 'react';
 import invariant from 'invariant';
 import type {Config, AbstractComponent} from 'react';

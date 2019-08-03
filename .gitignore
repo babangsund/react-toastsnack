@@ -24,3 +24,6 @@ yarn-error.log*
 
 # Mac files
 .DS_Store
+
+# Misc
+.rgignore

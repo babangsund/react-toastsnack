@@ -4,36 +4,57 @@
 
 import type {Node} from 'react';
 
-export type ToastSnackInput = {
-  id?: string,
-  options: ToastSnackOptions,
+export type ActionType = 'enqueue' | 'dequeue' | 'update';
+
+export type Action = {
+  queue: ToastSnackQueue,
+  type: ActionType,
+  input: ToastSnackCreate | ToastSnackUpdate,
 };
 
-export type ToastSnackOptions = {
-  open: boolean,
-  persist: boolean,
+export type ToastSnackCreate = {
+  id?: string,
+  ...ToastSnackProperties,
+};
+
+export type ToastSnackUpdate = {
+  id: string,
+  ...ToastSnackProperties,
+};
+
+export type ToastSnackProperties = {
+  open?: boolean,
+  height?: number,
+  persist?: boolean,
   duration?: number,
 };
 
+export type ToastSnack = {
+  id: string,
+  open: boolean,
+  height: number,
+  persist: boolean,
+  duration: number,
+};
+
 export type ToastSnackProvider = {
-  create: ToastSnackInput => string,
-  update: ToastSnackInput => void,
+  create: ToastSnackCreate => string,
+  update: ToastSnackUpdate => void,
   delete: string => void,
 };
 
 export type ReactToastSnackProviderProps = {
+  max?: number,
   children: Node,
+  dismiss?: boolean,
   renderer: any => any,
-  initial?: Array<ToastSnackInput>,
+  defaultHeight?: number,
+  defaultDuration?: number,
+  initial?: Array<ToastSnackCreate>,
 };
 
 export interface ToastSnackQueue {
-  enqueue(ToastSnackInput): string;
-  dequeue(): ?ToastSnack;
-}
-
-export interface ToastSnack {
-  getId(): string;
-  getOptions(): ToastSnackOptions;
-  setOptions(ToastSnackOptions): void;
+  peek(): ?string;
+  enqueue(ToastSnackCreate): string;
+  dequeue(current: number): ?ToastSnack;
 }
