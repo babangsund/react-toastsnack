@@ -7,6 +7,7 @@ import React from 'react';
 import ReactToastSnackQueue from './ReactToastSnackQueue';
 import ReactToastSnackContext from './ReactToastSnackContext';
 import ReactToastSnackReducer from './ReactToastSnackReducer';
+import {DEFAULT_HEIGHT, DEFAULT_OFFSET, DEFAULT_DURATION} from './Constants';
 import type {
   ToastSnack,
   ReactToastSnackProviderProps,
@@ -14,12 +15,14 @@ import type {
 
 function ReactToastSnackProvider({
   max,
+  delay,
   initial,
   dismiss,
   children,
   renderer,
-  defaultHeight,
-  defaultDuration,
+  offset,
+  height,
+  duration,
 }: ReactToastSnackProviderProps) {
   const [toastSnacks, dispatch] = React.useReducer(ReactToastSnackReducer, []);
   const Q = React.useRef(
@@ -27,8 +30,10 @@ function ReactToastSnackProvider({
       initial,
       max,
       dismiss,
-      defaultHeight,
-      defaultDuration,
+      delay,
+      height,
+      offset,
+      duration,
     ),
   );
 
@@ -36,6 +41,8 @@ function ReactToastSnackProvider({
     const queue = Q.current;
 
     dispatch({queue, type: 'enqueue', input});
+
+    return queue.last()?.id;
   }, []);
 
   const onUpdate = React.useCallback(input => {
@@ -44,26 +51,36 @@ function ReactToastSnackProvider({
     dispatch({queue, type: 'update', input});
   }, []);
 
-  const onDelete = React.useCallback((id: string) => {
+  const onClose = React.useCallback((id: string) => {
     const queue = Q.current;
 
-    dispatch({queue, type: 'dequeue', input: {id}});
+    dispatch({queue, type: 'update', input: {id, open: false}});
+  }, []);
+
+  const onExited = React.useCallback((id: string) => {
+    const queue = Q.current;
+
+    dispatch({queue, type: 'exited', input: {id}});
   }, []);
 
   const context = React.useMemo(
     () => ({
       create: onCreate,
       update: onUpdate,
-      delete: onDelete,
     }),
-    [onCreate, onUpdate, onDelete],
+    [onCreate, onUpdate],
   );
 
   return (
     <ReactToastSnackContext.Provider value={context}>
       {children}
       {toastSnacks.map(toastSnack => {
-        return React.createElement(renderer, toastSnack);
+        return React.createElement(renderer, {
+          ...toastSnack,
+          onUpdate,
+          onExited,
+          onClose,
+        });
       })}
     </ReactToastSnackContext.Provider>
   );

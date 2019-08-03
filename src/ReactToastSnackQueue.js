@@ -6,34 +6,48 @@ import React from 'react';
 import invariant from 'invariant';
 
 import ReactToastSnackContext from './ReactToastSnackContext';
-import {DEFAULT_HEIGHT, DEFAULT_DURATION} from './Constants';
+import {
+  DEFAULT_DELAY,
+  DEFAULT_HEIGHT,
+  DEFAULT_OFFSET,
+  DEFAULT_DURATION,
+} from './Constants';
 import type {
   ToastSnack,
   ToastSnackQueue,
   ToastSnackCreate,
+  ToastSnackSettings,
 } from './ReactToastSnackTypes';
 
 class ReactToastSnackQueue implements ToastSnackQueue {
   _queue: Array<ToastSnack>;
+  _last: ?ToastSnack;
+
   _max: ?number;
+  _delay: number;
+  _height: number;
+  _offset: number;
   _dismiss: boolean;
-  _defaultHeight: number;
-  _defaultDuration: number;
+  _duration: number;
 
   static _count = 0;
 
   constructor(
-    toastSnacks?: Array<ToastSnackCreate> = [],
+    initial?: Array<ToastSnackCreate> = [],
     max?: number,
     dismiss: boolean = false,
-    defaultHeight: number = DEFAULT_HEIGHT,
-    defaultDuration: number = DEFAULT_DURATION,
+    delay: number = DEFAULT_DELAY,
+    height: number = DEFAULT_HEIGHT,
+    offset: number = DEFAULT_OFFSET,
+    duration: number = DEFAULT_DURATION,
   ) {
     this._max = max;
+    this._delay = delay;
+    this._height = height;
+    this._offset = offset;
     this._dismiss = dismiss;
-    this._defaultHeight = defaultHeight;
-    this._defaultDuration = defaultDuration;
-    this._queue = toastSnacks ? toastSnacks.map(this.formatInput) : [];
+    this._duration = duration;
+    this._queue = initial ? initial.map(this.formatInput) : [];
   }
 
   _enqueue(toastSnack: ToastSnack) {
@@ -41,11 +55,8 @@ class ReactToastSnackQueue implements ToastSnackQueue {
   }
 
   _dequeue() {
-    return this._queue.shift();
-  }
-
-  peek() {
-    return this._queue[this._queue.length - 1]?.id;
+    const last = this._queue.shift();
+    return last;
   }
 
   enqueue(input: ToastSnackCreate) {
@@ -64,6 +75,21 @@ class ReactToastSnackQueue implements ToastSnackQueue {
     return null;
   }
 
+  last() {
+    return this._last;
+  }
+
+  settings() {
+    return {
+      max: this._max,
+      delay: this._delay,
+      offset: this._offset,
+      height: this._height,
+      dismiss: this._dismiss,
+      duration: this._duration,
+    };
+  }
+
   formatInput(input: ToastSnackCreate): ToastSnack {
     const id =
       typeof input.id === 'string'
@@ -75,8 +101,8 @@ class ReactToastSnackQueue implements ToastSnackQueue {
         id,
         open: true,
         persist: false,
-        height: this._defaultHeight,
-        duration: this._defaultDuration,
+        height: this._height,
+        duration: this._duration,
       },
       input,
     );

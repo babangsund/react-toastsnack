@@ -4,7 +4,7 @@
 
 import type {Node} from 'react';
 
-export type ActionType = 'enqueue' | 'dequeue' | 'update';
+export type ActionType = 'enqueue' | 'dequeue' | 'update' | 'exited';
 
 export type Action = {
   queue: ToastSnackQueue,
@@ -38,23 +38,34 @@ export type ToastSnack = {
 };
 
 export type ToastSnackProvider = {
-  create: ToastSnackCreate => void,
+  create: ToastSnackCreate => ?string,
   update: ToastSnackUpdate => void,
-  delete: string => void,
 };
 
 export type ReactToastSnackProviderProps = {
   max?: number,
   children: Node,
+  delay?: number,
+  offset?: number,
+  height?: number,
   dismiss?: boolean,
+  duration?: number,
   renderer: any => any,
-  defaultHeight?: number,
-  defaultDuration?: number,
   initial?: Array<ToastSnackCreate>,
 };
 
+export type ToastSnackSettings = {
+  max: ?number,
+  delay: number,
+  height: number,
+  offset: number,
+  dismiss: boolean,
+  duration: number,
+};
+
 export interface ToastSnackQueue {
-  peek(): ?string;
+  last(): ?ToastSnack;
+  settings(): ToastSnackSettings;
   enqueue(ToastSnackCreate): string;
   dequeue(current: number): ?ToastSnack;
 }
