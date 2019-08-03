@@ -36,8 +36,6 @@ function ReactToastSnackProvider({
     const queue = Q.current;
 
     dispatch({queue, type: 'enqueue', input});
-
-    return queue.peek();
   }, []);
 
   const onUpdate = React.useCallback(input => {

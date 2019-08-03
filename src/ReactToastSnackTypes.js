@@ -38,7 +38,7 @@ export type ToastSnack = {
 };
 
 export type ToastSnackProvider = {
-  create: ToastSnackCreate => string,
+  create: ToastSnackCreate => void,
   update: ToastSnackUpdate => void,
   delete: string => void,
 };

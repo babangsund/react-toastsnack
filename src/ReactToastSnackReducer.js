@@ -15,18 +15,20 @@ function ReactToastSnackReducer(
   const {queue, input, type} = action;
 
   switch (type) {
-    case 'enqueue': {
-      queue.enqueue(input || {});
-      break;
-    }
+    case 'enqueue':
     case 'dequeue': {
+      if (type === 'enqueue') {
+        queue.enqueue(input);
+      }
+
       const toastSnack = queue.dequeue(toastSnacks.length);
 
       if (toastSnack) {
         return [...toastSnacks, toastSnack];
       }
-    }
 
+      break;
+    }
     case 'update': {
       const toastSnack = toastSnacks.find(x => x.id === input.id);
 
@@ -40,6 +42,8 @@ function ReactToastSnackReducer(
               },
         );
       }
+
+      break;
     }
     default: {
       break;
