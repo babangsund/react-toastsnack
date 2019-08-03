@@ -1,9 +1,16 @@
 {
   "name": "react-toastsnack",
   "version": "0.1.0",
-  "description": "Notification snackbars (toasts) for React.",
-  "main": "index.js",
+  "description": "WIP: Notifications for React.",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "author": "babangsund",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "build": "NODE_ENV=production rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,28 +25,43 @@
     "snackbar",
     "notification"
   ],
-  "author": "babangsund",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/babangsund/react-toastsnack/issues"
   },
   "homepage": "https://github.com/babangsund/react-toastsnack#readme",
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-export-default-from": "^7.5.2",
+    "@babel/plugin-proposal-optional-chaining": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.5.5",
     "babel-eslint": "^10.0.2",
-    "babel-preset-fbjs": "^3.2.0",
-    "eslint": "^6.1.0",
-    "eslint-config-fbjs": "^3.1.0",
-    "eslint-plugin-babel": "^5.3.0",
-    "eslint-plugin-flowtype": "^3.13.0",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.14.3",
+    "babel-plugin-dev-expression": "^0.2.2",
+    "cross-env": "^5.2.0",
+    "eslint": "^6.0.0",
+    "eslint-config-fbjs": "^3.0.0",
+    "eslint-plugin-babel": "^5.0.0",
+    "eslint-plugin-flowtype": "^3.0.0",
+    "eslint-plugin-jsx-a11y": "^6.0.0",
+    "eslint-plugin-react": "^7.0.0",
     "fbjs": "^1.0.0",
     "flow-bin": "^0.104.0",
     "jest": "^24.8.0",
-    "prettier": "^1.18.2",
-    "react": "^16.8.6"
+    "prettier": "^1.18.0",
+    "react": "^16.8.6",
+    "rollup": "^1.17.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^5.1.1"
+  },
+  "dependencies": {
+    "react": "^16.8.0",
+    "@babel/runtime": "^7.0.0"
   }
 }
