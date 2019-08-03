@@ -76,6 +76,7 @@ function ReactToastSnackProvider({
       {children}
       {toastSnacks.map(toastSnack => {
         return React.createElement(renderer, {
+          key: toastSnack.id,
           ...toastSnack,
           onUpdate,
           onExited,
