@@ -50,7 +50,7 @@ export type ReactToastSnackProviderProps = {
 };
 
 export type ToastSnackSettings = {
-  max: ?number,
+  max: number,
   delay: number,
   height: number,
   offset: number,
@@ -58,8 +58,9 @@ export type ToastSnackSettings = {
 };
 
 export interface ToastSnackQueue {
-  last(): ?ToastSnack;
-  settings(): ToastSnackSettings;
+  getLast(): ?ToastSnack;
+  getLength(): number;
+  getSettings(): ToastSnackSettings;
   enqueue(ToastSnackCreate): string;
-  dequeue(current: number): ?ToastSnack;
+  dequeue(): ?ToastSnack;
 }

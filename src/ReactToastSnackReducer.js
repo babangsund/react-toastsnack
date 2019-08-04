@@ -33,15 +33,23 @@ function ReactToastSnackReducer(
   action: Action,
 ): any {
   const {queue, input, type} = action;
-  const settings = queue.settings();
+  const {max, dismiss, delay, offset} = queue.getSettings();
 
   let newToastSnacks: ?Array<ToastSnack> = null;
 
   function dequeue() {
-    const toastSnack = queue.dequeue(toastSnacks.length);
+    const isMax = toastSnacks.length >= max;
+    let tempToastSnacks = toastSnacks;
 
+    if (!queue.getLength() || (isMax && !dismiss)) return;
+
+    if (isMax) {
+      [, ...tempToastSnacks] = toastSnacks;
+    }
+
+    const toastSnack = queue.dequeue();
     if (toastSnack) {
-      newToastSnacks = [...toastSnacks, toastSnack];
+      return [...tempToastSnacks, toastSnack];
     }
   }
 
@@ -52,7 +60,7 @@ function ReactToastSnackReducer(
         queue.enqueue(input);
       }
 
-      dequeue();
+      newToastSnacks = dequeue();
 
       break;
     }
@@ -80,9 +88,9 @@ function ReactToastSnackReducer(
         newToastSnacks = toastSnacks.filter(x => x.id !== input.id);
 
         const timeout = setTimeout(() => {
-          dequeue();
+          newToastSnacks = dequeue();
           clearTimeout(timeout);
-        }, settings.delay);
+        }, delay);
       }
 
       break;
@@ -92,7 +100,7 @@ function ReactToastSnackReducer(
     }
   }
 
-  if (newToastSnacks) return offsets(newToastSnacks, settings.offset);
+  if (newToastSnacks) return offsets(newToastSnacks, offset);
   else return toastSnacks;
 }
 

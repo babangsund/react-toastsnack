@@ -23,7 +23,7 @@ class ReactToastSnackQueue implements ToastSnackQueue {
   _queue: Array<ToastSnack>;
   _last: ?ToastSnack;
 
-  _max: ?number;
+  _max: number;
   _delay: number;
   _height: number;
   _offset: number;
@@ -33,10 +33,10 @@ class ReactToastSnackQueue implements ToastSnackQueue {
 
   constructor(
     initial?: Array<ToastSnackCreate> = [],
-    max?: number,
-    dismiss: boolean = false,
-    delay: number = DEFAULT_DELAY,
-    height: number = DEFAULT_HEIGHT,
+    max?: number = 0,
+    dismiss?: boolean = false,
+    delay?: number = DEFAULT_DELAY,
+    height?: number = DEFAULT_HEIGHT,
     offset: number = DEFAULT_OFFSET,
   ) {
     this._max = max;
@@ -53,6 +53,7 @@ class ReactToastSnackQueue implements ToastSnackQueue {
 
   _dequeue() {
     const last = this._queue.shift();
+    this._last = last;
     return last;
   }
 
@@ -62,21 +63,20 @@ class ReactToastSnackQueue implements ToastSnackQueue {
     return toastSnack.id;
   }
 
-  dequeue(active: number) {
+  dequeue() {
     if (this._queue.length === 0) return null;
-
-    if (!this._max || active < this._max) {
-      return this._dequeue();
-    }
-
-    return null;
+    return this._dequeue();
   }
 
-  last() {
+  getLast() {
     return this._last;
   }
 
-  settings() {
+  getLength() {
+    return this._queue.length;
+  }
+
+  getSettings() {
     return {
       max: this._max,
       delay: this._delay,

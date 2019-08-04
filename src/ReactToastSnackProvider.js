@@ -33,7 +33,7 @@ function ReactToastSnackProvider({
 
     dispatch({queue, type: 'enqueue', input});
 
-    return queue.last()?.id;
+    return queue.getLast()?.id;
   }, []);
 
   const onUpdate = React.useCallback(input => {
