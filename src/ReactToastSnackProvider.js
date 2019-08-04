@@ -16,12 +16,12 @@ import type {
 function ReactToastSnackProvider({
   max,
   delay,
+  offset,
+  height,
   initial,
   dismiss,
   children,
   renderer,
-  offset,
-  height,
   duration,
 }: ReactToastSnackProviderProps) {
   const [toastSnacks, dispatch] = React.useReducer(ReactToastSnackReducer, []);
