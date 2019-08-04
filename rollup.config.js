@@ -8,8 +8,20 @@ import pkg from './package.json';
 const input = 'src/index.js';
 const globals = {react: 'React'};
 const external = Object.keys(globals).concat('@babel/runtime');
+const banner =
+  [
+    '/**',
+    ' * react-toastsnack v' + process.env.npm_package_version,
+    ' *',
+    ' * Copyright (c) 2019 babangsund',
+    ' *',
+    ' * This source code is licensed under the MIT license found in the',
+    ' * LICENSE file in the root directory of this source tree.',
+    ' */',
+  ].join('\n') + '\n';
 
 const base = {input, external};
+const output = {globals, banner};
 
 function makePlugins(minify, useESModules) {
   return [
@@ -26,7 +38,7 @@ function makePlugins(minify, useESModules) {
 const esm = {
   ...base,
   output: {
-    globals,
+    ...output,
     format: 'esm',
     file: pkg.module,
   },
@@ -36,7 +48,7 @@ const esm = {
 const cjs = {
   ...base,
   output: {
-    globals,
+    ...output,
     format: 'cjs',
     file: pkg.main,
   },
@@ -46,7 +58,7 @@ const cjs = {
 const umd = {
   ...base,
   output: {
-    globals,
+    ...output,
     format: 'umd',
     name: 'ReactToastSnack',
     file: `dist/index.umd.${process.env.NODE_ENV}.js`,
