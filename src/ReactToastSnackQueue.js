@@ -28,7 +28,6 @@ class ReactToastSnackQueue implements ToastSnackQueue {
   _height: number;
   _offset: number;
   _dismiss: boolean;
-  _duration: number;
 
   static _count = 0;
 
@@ -39,14 +38,12 @@ class ReactToastSnackQueue implements ToastSnackQueue {
     delay: number = DEFAULT_DELAY,
     height: number = DEFAULT_HEIGHT,
     offset: number = DEFAULT_OFFSET,
-    duration: number = DEFAULT_DURATION,
   ) {
     this._max = max;
     this._delay = delay;
     this._height = height;
     this._offset = offset;
     this._dismiss = dismiss;
-    this._duration = duration;
     this._queue = initial ? initial.map(this.formatInput) : [];
   }
 
@@ -86,7 +83,6 @@ class ReactToastSnackQueue implements ToastSnackQueue {
       offset: this._offset,
       height: this._height,
       dismiss: this._dismiss,
-      duration: this._duration,
     };
   }
 
@@ -100,9 +96,7 @@ class ReactToastSnackQueue implements ToastSnackQueue {
       {
         id,
         open: true,
-        persist: false,
         height: this._height,
-        duration: this._duration,
       },
       input,
     );

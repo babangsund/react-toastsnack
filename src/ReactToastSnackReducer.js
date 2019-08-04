@@ -13,6 +13,7 @@ function offsets(toastSnacks: Array<ToastSnack>, offset: number) {
   let index = 0;
 
   const offsets = {};
+  offsets[0] = totalOffset;
 
   while (toastSnacks[index + 1]) {
     const prevHeight = toastSnacks[index + 1].height;

@@ -25,16 +25,12 @@ export type ToastSnackUpdate = {
 export type ToastSnackProperties = {
   open?: boolean,
   height?: number,
-  persist?: boolean,
-  duration?: number,
 };
 
 export type ToastSnack = {
   id: string,
   open: boolean,
   height: number,
-  persist: boolean,
-  duration: number,
 };
 
 export type ToastSnackProvider = {
@@ -49,7 +45,6 @@ export type ReactToastSnackProviderProps = {
   offset?: number,
   height?: number,
   dismiss?: boolean,
-  duration?: number,
   renderer: any => any,
   initial?: Array<ToastSnackCreate>,
 };
@@ -60,7 +55,6 @@ export type ToastSnackSettings = {
   height: number,
   offset: number,
   dismiss: boolean,
-  duration: number,
 };
 
 export interface ToastSnackQueue {

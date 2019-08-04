@@ -22,19 +22,10 @@ function ReactToastSnackProvider({
   dismiss,
   children,
   renderer,
-  duration,
 }: ReactToastSnackProviderProps) {
   const [toastSnacks, dispatch] = React.useReducer(ReactToastSnackReducer, []);
   const Q = React.useRef(
-    new ReactToastSnackQueue(
-      initial,
-      max,
-      dismiss,
-      delay,
-      height,
-      offset,
-      duration,
-    ),
+    new ReactToastSnackQueue(initial, max, dismiss, delay, height, offset),
   );
 
   const onCreate = React.useCallback(input => {
@@ -77,7 +68,7 @@ function ReactToastSnackProvider({
       {toastSnacks.map(toastSnack => {
         return React.createElement(renderer, {
           key: toastSnack.id,
-          ...toastSnack,
+          toastSnack,
           onUpdate,
           onExited,
           onClose,
