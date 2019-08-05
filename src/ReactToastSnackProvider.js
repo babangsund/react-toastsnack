@@ -22,6 +22,7 @@ function ReactToastSnackProvider({
   dismiss,
   children,
   renderer,
+  methods = {},
 }: ReactToastSnackProviderProps) {
   const [toastSnacks, dispatch] = React.useReducer(ReactToastSnackReducer, []);
   const Q = React.useRef(
@@ -54,13 +55,16 @@ function ReactToastSnackProvider({
     dispatch({queue, type: 'exited', input: {id}});
   }, []);
 
-  const context = React.useMemo(
-    () => ({
+  const context = React.useMemo(() => {
+    return {
       create: onCreate,
       update: onUpdate,
-    }),
-    [onCreate, onUpdate],
-  );
+      ...Object.keys(methods).reduce((p, c) => {
+        p[c] = methods[c](onCreate, onUpdate);
+        return p;
+      }, {}),
+    };
+  }, [onCreate, onUpdate]);
 
   return (
     <ReactToastSnackContext.Provider value={context}>

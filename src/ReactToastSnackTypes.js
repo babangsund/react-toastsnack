@@ -47,6 +47,12 @@ export type ReactToastSnackProviderProps = {
   dismiss?: boolean,
   renderer: any => any,
   initial?: Array<ToastSnackCreate>,
+  methods: {
+    [key: string]: (
+      (ToastSnackCreate) => ?string,
+      (ToastSnackUpdate) => void,
+    ) => (ToastSnackCreate | ToastSnackUpdate) => {},
+  },
 };
 
 export type ToastSnackSettings = {
