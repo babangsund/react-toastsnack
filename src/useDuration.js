@@ -15,12 +15,12 @@ function useDuration(
   const startTimer = React.useCallback(() => {
     if (!duration || !onClose) return;
     timer.current = setTimeout(() => onClose(id), duration);
-  }, []);
+  }, [duration, onClose]);
 
   React.useEffect(() => {
     if (open) startTimer();
     return () => clearTimeout(timer.current);
-  }, [open]);
+  }, [open, startTimer]);
 }
 
 export default useDuration;

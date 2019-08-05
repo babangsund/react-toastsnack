@@ -56,7 +56,7 @@ export type ReactToastSnackProviderProps = {
 };
 
 export type ToastSnackSettings = {
-  max: number,
+  max: ?number,
   delay: number,
   height: number,
   offset: number,

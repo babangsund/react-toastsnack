@@ -38,7 +38,7 @@ function ReactToastSnackReducer(
   let newToastSnacks: ?Array<ToastSnack> = null;
 
   function dequeue() {
-    const isMax = toastSnacks.length >= max;
+    const isMax = max && toastSnacks.length >= max;
     let tempToastSnacks = toastSnacks;
 
     if (!queue.getLength() || (isMax && !dismiss)) return;

@@ -64,7 +64,7 @@ function ReactToastSnackProvider({
         return p;
       }, {}),
     };
-  }, [onCreate, onUpdate]);
+  }, [onCreate, onUpdate, methods]);
 
   return (
     <ReactToastSnackContext.Provider value={context}>

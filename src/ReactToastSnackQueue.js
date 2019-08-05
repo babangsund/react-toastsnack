@@ -23,7 +23,7 @@ class ReactToastSnackQueue implements ToastSnackQueue {
   _queue: Array<ToastSnack>;
   _last: ?ToastSnack;
 
-  _max: number;
+  _max: ?number;
   _delay: number;
   _height: number;
   _offset: number;
@@ -33,7 +33,7 @@ class ReactToastSnackQueue implements ToastSnackQueue {
 
   constructor(
     initial?: Array<ToastSnackCreate> = [],
-    max?: number = 0,
+    max?: ?number = null,
     dismiss?: boolean = false,
     delay?: number = DEFAULT_DELAY,
     height?: number = DEFAULT_HEIGHT,
