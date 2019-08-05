@@ -1,7 +1,7 @@
 {
   "name": "react-toastsnack",
   "version": "0.1.0",
-  "description": "WIP: Notifications for React.",
+  "description": "An unopinionated notification queue for React",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "author": "babangsund",
