@@ -99,8 +99,7 @@ const ToastSnack = React.memo(props => {
   } = toastSnack;
 
   // If the snack height isn't the same as the default height
-  // as the one we provided to ReactToastSnackProvider,
-  // we may want to update it
+  // which we provided to ReactToastSnackProvider, we may want to update it
   const ref = useRef(null);
   useLayoutEffect(() => {
     const height = ref.current?.clientHeight;
@@ -194,9 +193,11 @@ function AppContext() {
     }
   })
 
-	<ReactToastSnackProvider methods={methods} renderer={...}>
-		<App />
-	</ReactToastSnackProvider>
+  return (
+    <ReactToastSnackProvider methods={methods} renderer={...}>
+      <App />
+    </ReactToastSnackProvider>
+  )
 }
 ```
 
@@ -212,13 +213,15 @@ function Elsewhere() {
   // When the button is clicked, create a new promise
   // to display a loading notification, which will change whenever the request responds
 
-  <button onClick={() => {
-    toastSnack.promise({
-      promise: fetch(puppies_url, { method: "POST" })
-    })
-  }}>
-    Click here to buy puppies
-  </button>
+  return (
+    <button onClick={() => {
+      toastSnack.promise({
+        promise: fetch(puppies_url, { method: "POST" })
+      })
+    }}>
+      Click here to buy puppies
+    </button>
+  )
 }
 ```
 
