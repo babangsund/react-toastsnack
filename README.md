@@ -31,9 +31,11 @@ import React from 'react';
 import { ReactToastSnackProvider } from "react-toastsnack";
 
 function AppContext() {
-	<ReactToastSnackProvider>
-		<App />
-	</ReactToastSnackProvider>
+  return (
+    <ReactToastSnackProvider>
+      <App />
+    </ReactToastSnackProvider>
+  );
 }
 ```
 
