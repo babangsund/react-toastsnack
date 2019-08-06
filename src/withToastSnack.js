@@ -4,7 +4,7 @@
 
 import React from 'react';
 import invariant from 'invariant';
-import type {Config, AbstractComponent} from 'react';
+import type {AbstractComponent} from 'react';
 
 import ReactToastSnackContext from './ReactToastSnackContext';
 

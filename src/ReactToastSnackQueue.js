@@ -2,21 +2,11 @@
 
 'use strict';
 
-import React from 'react';
-import invariant from 'invariant';
-
-import ReactToastSnackContext from './ReactToastSnackContext';
-import {
-  DEFAULT_DELAY,
-  DEFAULT_HEIGHT,
-  DEFAULT_OFFSET,
-  DEFAULT_DURATION,
-} from './Constants';
+import {DEFAULT_DELAY, DEFAULT_HEIGHT, DEFAULT_OFFSET} from './Constants';
 import type {
   ToastSnack,
   ToastSnackQueue,
   ToastSnackCreate,
-  ToastSnackSettings,
 } from './ReactToastSnackTypes';
 
 class ReactToastSnackQueue implements ToastSnackQueue {
@@ -64,7 +54,9 @@ class ReactToastSnackQueue implements ToastSnackQueue {
   }
 
   dequeue() {
-    if (this._queue.length === 0) return null;
+    if (this._queue.length === 0) {
+      return null;
+    }
     return this._dequeue();
   }
 

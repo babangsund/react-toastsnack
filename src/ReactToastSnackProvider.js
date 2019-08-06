@@ -7,11 +7,7 @@ import React from 'react';
 import ReactToastSnackQueue from './ReactToastSnackQueue';
 import ReactToastSnackContext from './ReactToastSnackContext';
 import ReactToastSnackReducer from './ReactToastSnackReducer';
-import {DEFAULT_HEIGHT, DEFAULT_OFFSET, DEFAULT_DURATION} from './Constants';
-import type {
-  ToastSnack,
-  ReactToastSnackProviderProps,
-} from './ReactToastSnackTypes.js';
+import type {ReactToastSnackProviderProps} from './ReactToastSnackTypes.js';
 
 function ReactToastSnackProvider({
   max,

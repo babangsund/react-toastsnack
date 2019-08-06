@@ -46,6 +46,7 @@
     "cross-env": "^5.0.0",
     "eslint": "^6.0.0",
     "eslint-config-fbjs": "^3.0.0",
+    "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-babel": "^5.0.0",
     "eslint-plugin-flowtype": "^3.0.0",
     "eslint-plugin-jsx-a11y": "^6.0.0",

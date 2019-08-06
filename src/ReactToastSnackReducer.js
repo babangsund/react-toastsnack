@@ -2,11 +2,7 @@
 
 'use strict';
 
-import type {
-  Action,
-  ToastSnack,
-  ToastSnackQueue,
-} from './ReactToastSnackTypes.js';
+import type {Action, ToastSnack} from './ReactToastSnackTypes.js';
 
 function offsets(toastSnacks: Array<ToastSnack>, offset: number) {
   let totalOffset = offset * 3;
@@ -41,7 +37,9 @@ function ReactToastSnackReducer(
     const isMax = max && toastSnacks.length >= max;
     let tempToastSnacks = toastSnacks;
 
-    if (!queue.getLength() || (isMax && !dismiss)) return;
+    if (!queue.getLength() || (isMax && !dismiss)) {
+      return null;
+    }
 
     if (isMax) {
       [, ...tempToastSnacks] = toastSnacks;
@@ -51,6 +49,8 @@ function ReactToastSnackReducer(
     if (toastSnack) {
       return [...tempToastSnacks, toastSnack];
     }
+
+    return null;
   }
 
   switch (type) {
