@@ -6,9 +6,5 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'error',
     'max-len': 'off',
     'flowtype/object-type-delimiter': 'off',
-    'no-unused-vars': [
-      'warn',
-      {args: 'none', varsIgnorePattern: '^_', ignoreRestSiblings: true},
-    ],
   },
 };

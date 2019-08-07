@@ -66,7 +66,7 @@ function ReactToastSnackReducer(
     }
     case 'update': {
       const toastSnack = toastSnacks.find(x => x.id === input.id);
-      const {id, ...properties} = input;
+      const {id: _id, ...properties} = input;
 
       if (toastSnack) {
         newToastSnacks = toastSnacks.map(toastSnack =>
