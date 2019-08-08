@@ -3,7 +3,6 @@ node_modules/
 
 # Builds
 dist/
-lib/
 
 # Logs
 logs
@@ -20,7 +19,6 @@ yarn-error.log*
 
 # Dotenv environment variables
 .env
-.env.build
 
 # Mac files
 .DS_Store
