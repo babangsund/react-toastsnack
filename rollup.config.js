@@ -50,7 +50,7 @@ export default {
     {
       globals,
       format: 'umd',
-      name: 'ReactPromisePortal',
+      name: 'ReactToastSnack',
       file: `dist/index.umd.${process.env.NODE_ENV}.js`,
     },
   ],
