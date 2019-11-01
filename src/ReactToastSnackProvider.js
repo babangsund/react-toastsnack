@@ -27,27 +27,22 @@ function ReactToastSnackProvider({
 
   const onCreate = React.useCallback(input => {
     const queue = Q.current;
-
     dispatch({queue, type: 'enqueue', input});
-
     return queue.getLast()?.id;
   }, []);
 
   const onUpdate = React.useCallback(input => {
     const queue = Q.current;
-
     dispatch({queue, type: 'update', input});
   }, []);
 
   const onClose = React.useCallback((id: string) => {
     const queue = Q.current;
-
     dispatch({queue, type: 'update', input: {id, open: false}});
   }, []);
 
   const onExited = React.useCallback((id: string) => {
     const queue = Q.current;
-
     dispatch({queue, type: 'exited', input: {id}});
   }, []);
 

@@ -6,32 +6,33 @@ import type {Node} from 'react';
 
 export type ActionType = 'enqueue' | 'dequeue' | 'update' | 'exited';
 
-export type Action = {
+export type Action = {|
   queue: ToastSnackQueue,
   type: ActionType,
   input: ToastSnackCreate | ToastSnackUpdate,
-};
+|};
 
-export type ToastSnackCreate = {
+export type ToastSnackCreate = {|
   id?: string,
   ...ToastSnackProperties,
-};
+|};
 
-export type ToastSnackUpdate = {
-  id: string,
+export type ToastSnackUpdate = {|
   ...ToastSnackProperties,
-};
+  id: string,
+|};
 
-export type ToastSnackProperties = {
+export type ToastSnackProperties = {|
+  id: string,
   open?: boolean,
   height?: number,
-};
+|};
 
-export type ToastSnack = {
+export type ToastSnack = {|
   id: string,
   open: boolean,
   height: number,
-};
+|};
 
 export type ToastSnackProvider = {
   create: ToastSnackCreate => ?string,

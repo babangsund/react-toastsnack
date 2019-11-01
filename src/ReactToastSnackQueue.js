@@ -13,7 +13,7 @@ class ReactToastSnackQueue implements ToastSnackQueue {
   _queue: Array<ToastSnack>;
   _last: ?ToastSnack;
 
-  _max: ?number;
+  +_max: ?number;
   _delay: number;
   _height: number;
   _offset: number;

@@ -31,8 +31,6 @@ function ReactToastSnackReducer(
   const {queue, input, type} = action;
   const {max, dismiss, delay, offset} = queue.getSettings();
 
-  let newToastSnacks: ?Array<ToastSnack> = null;
-
   function dequeue() {
     const isMax = max && toastSnacks.length >= max;
     let tempToastSnacks = toastSnacks;
@@ -52,6 +50,8 @@ function ReactToastSnackReducer(
 
     return null;
   }
+
+  let newToastSnacks: ?Array<ToastSnack> = null;
 
   switch (type) {
     case 'enqueue':
