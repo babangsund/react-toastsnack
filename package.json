@@ -1,18 +1,17 @@
 {
-  "name": "react-toastsnack",
-  "version": "1.0.1",
-  "description": "An unopinionated notification queue for React",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "author": "babangsund",
   "license": "MIT",
+  "version": "1.2.0",
+  "author": "babangsund",
+  "main": "dist/index.js",
+  "name": "react-toastsnack",
+  "module": "dist/index.esm.js",
+  "description": "An unopinionated notification queue for React",
+  "homepage": "https://github.com/babangsund/react-toastsnack#readme",
   "files": [
     "dist"
   ],
-  "scripts": {
-    "build": "NODE_ENV=production rollup -c",
-    "watch": "NODE_ENV=development rollup -c -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "bugs": {
+    "url": "https://github.com/babangsund/react-toastsnack/issues"
   },
   "repository": {
     "type": "git",
@@ -26,10 +25,11 @@
     "snackbar",
     "notification"
   ],
-  "bugs": {
-    "url": "https://github.com/babangsund/react-toastsnack/issues"
+  "scripts": {
+    "build": "NODE_ENV=production rollup -c",
+    "watch": "NODE_ENV=development rollup -c -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/babangsund/react-toastsnack#readme",
   "devDependencies": {
     "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
@@ -65,5 +65,7 @@
   "peerDependencies": {
     "react": "^16.8.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@babel/runtime": "^7.0.0"
+  }
 }
