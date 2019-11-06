@@ -1,13 +1,4 @@
-// @flow
-
-'use strict';
-
 import {DEFAULT_DELAY, DEFAULT_HEIGHT, DEFAULT_OFFSET} from './Constants';
-import type {
-  ToastSnack,
-  ToastSnackQueue,
-  ToastSnackCreate,
-} from './ReactToastSnackTypes';
 
 class ReactToastSnackQueue implements ToastSnackQueue {
   _queue: Array<ToastSnack>;
@@ -60,7 +51,7 @@ class ReactToastSnackQueue implements ToastSnackQueue {
     return this._dequeue();
   }
 
-  getLast() {
+  getLast(): ToastSnack | null {
     return this._last;
   }
 
