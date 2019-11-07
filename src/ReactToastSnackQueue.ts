@@ -1,10 +1,10 @@
-import {DEFAULT_DELAY, DEFAULT_HEIGHT, DEFAULT_OFFSET} from './Constants';
+import { DEFAULT_DELAY, DEFAULT_HEIGHT, DEFAULT_OFFSET } from './Constants';
 
 class ReactToastSnackQueue implements ToastSnackQueue {
   _queue: Array<ToastSnack>;
-  _last: ?ToastSnack;
+  _last: ToastSnack | null;
 
-  +_max: ?number;
+  _max: number;
   _delay: number;
   _height: number;
   _offset: number;
@@ -13,14 +13,15 @@ class ReactToastSnackQueue implements ToastSnackQueue {
   static _count = 0;
 
   constructor(
-    initial?: Array<ToastSnackCreate> = [],
-    max?: ?number = null,
-    dismiss?: boolean = false,
-    delay?: number = DEFAULT_DELAY,
-    height?: number = DEFAULT_HEIGHT,
-    offset: number = DEFAULT_OFFSET,
+    initial: Array<ToastSnackCreate> = [],
+    max: number,
+    dismiss = false,
+    delay: number = DEFAULT_DELAY,
+    height: number = DEFAULT_HEIGHT,
+    offset: number = DEFAULT_OFFSET
   ) {
     this._max = max;
+    this._last = null;
     this._delay = delay;
     this._height = height;
     this._offset = offset;
@@ -28,23 +29,23 @@ class ReactToastSnackQueue implements ToastSnackQueue {
     this._queue = initial ? initial.map(this.formatInput) : [];
   }
 
-  _enqueue(toastSnack: ToastSnack) {
+  _enqueue(toastSnack: ToastSnack): void {
     this._queue.push(toastSnack);
   }
 
-  _dequeue() {
-    const last = this._queue.shift();
+  _dequeue(): ToastSnack | null {
+    const last = this._queue.shift() || null;
     this._last = last;
     return last;
   }
 
-  enqueue(input: ToastSnackCreate) {
+  enqueue(input: ToastSnackCreate): string {
     const toastSnack = this.formatInput(input);
     this._enqueue(toastSnack);
     return toastSnack.id;
   }
 
-  dequeue() {
+  dequeue(): ToastSnack | null {
     if (this._queue.length === 0) {
       return null;
     }
@@ -55,11 +56,11 @@ class ReactToastSnackQueue implements ToastSnackQueue {
     return this._last;
   }
 
-  getLength() {
+  getLength(): number {
     return this._queue.length;
   }
 
-  getSettings() {
+  getSettings(): ToastSnackSettings {
     return {
       max: this._max,
       delay: this._delay,
@@ -81,7 +82,7 @@ class ReactToastSnackQueue implements ToastSnackQueue {
         open: true,
         height: this._height,
       },
-      input,
+      input
     );
   }
 }

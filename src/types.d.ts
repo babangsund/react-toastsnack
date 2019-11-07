@@ -63,6 +63,6 @@ interface ToastSnackQueue {
   getLast(): ToastSnack | null;
   getLength(): number;
   getSettings(): ToastSnackSettings;
-  enqueue(onCreate: ToastSnackCreate): string;
+  enqueue(input: ToastSnackCreate): string;
   dequeue(): ToastSnack | null;
 }
