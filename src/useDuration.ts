@@ -1,16 +1,12 @@
-// @flow
-
-'use strict';
-
 import React from 'react';
 
 function useDuration(
   id: string,
   open: boolean,
   duration: number,
-  onClose: (id: string) => void,
+  onClose: (id: string) => void
 ): void {
-  const timer = React.useRef();
+  const timer = React.useRef<NodeJS.Timeout>(0);
 
   const startTimer = React.useCallback(() => {
     if (!duration || !onClose) {
