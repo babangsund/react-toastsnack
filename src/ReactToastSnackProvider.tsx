@@ -1,15 +1,11 @@
-// @flow
-
-'use strict';
-
 import React from 'react';
 
+// project
 import ReactToastSnackQueue from './ReactToastSnackQueue';
 import ReactToastSnackContext from './ReactToastSnackContext';
 import ReactToastSnackReducer from './ReactToastSnackReducer';
-import type {ReactToastSnackProviderProps} from './ReactToastSnackTypes.js';
 
-function ReactToastSnackProvider({
+const ReactToastSnackProvider: React.FC<ReactToastSnackProviderProps> = ({
   max,
   delay,
   offset,
@@ -19,38 +15,38 @@ function ReactToastSnackProvider({
   children,
   renderer,
   methods = {},
-}: ReactToastSnackProviderProps) {
+}: ReactToastSnackProviderProps) => {
   const [toastSnacks, dispatch] = React.useReducer(ReactToastSnackReducer, []);
   const Q = React.useRef(
-    new ReactToastSnackQueue(initial, max, dismiss, delay, height, offset),
+    new ReactToastSnackQueue(initial, max, dismiss, delay, height, offset)
   );
 
   const onCreate = React.useCallback(input => {
     const queue = Q.current;
-    dispatch({queue, type: 'enqueue', input});
-    return queue.getLast()?.id;
+    dispatch({ queue, type: 'enqueue', input });
+    return queue.getLast() ?.id;
   }, []);
 
   const onUpdate = React.useCallback(input => {
     const queue = Q.current;
-    dispatch({queue, type: 'update', input});
+    dispatch({ queue, type: 'update', input });
   }, []);
 
   const onClose = React.useCallback((id: string) => {
     const queue = Q.current;
-    dispatch({queue, type: 'update', input: {id, open: false}});
+    dispatch({ queue, type: 'update', input: { id, open: false } });
   }, []);
 
   const onExited = React.useCallback((id: string) => {
     const queue = Q.current;
-    dispatch({queue, type: 'exited', input: {id}});
+    dispatch({ queue, type: 'exited', input: { id } });
   }, []);
 
   const context = React.useMemo(() => {
     return {
       create: onCreate,
       update: onUpdate,
-      ...Object.keys(methods).reduce((p, c) => {
+      ...Object.keys(methods).reduce((p: { [key: string]: unknown }, c: string) => {
         p[c] = methods[c](onCreate, onUpdate);
         return p;
       }, {}),
@@ -60,7 +56,7 @@ function ReactToastSnackProvider({
   return (
     <ReactToastSnackContext.Provider value={context}>
       {children}
-      {toastSnacks.map(toastSnack => {
+      {toastSnacks.map((toastSnack: ToastSnack) => {
         return React.createElement(renderer, {
           key: toastSnack.id,
           toastSnack,

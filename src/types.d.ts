@@ -28,10 +28,12 @@ type ToastSnack = {
 
 type Create = (input: ToastSnackCreate) => string | null;
 type Update = (input: ToastSnackUpdate) => void;
+type Method = (onCreate: Create, onUpdate: Update) => unknown;
 
 type ToastSnackProvider = {
   create: Create;
   update: Update;
+  [key: string]: Method;
 };
 
 type ReactToastSnackProviderProps = {
@@ -41,13 +43,10 @@ type ReactToastSnackProviderProps = {
   offset?: number;
   height?: number;
   dismiss?: boolean;
-  renderer: (arg: any) => any;
+  renderer: React.ReactComponent;
   initial?: Array<ToastSnackCreate>;
   methods: {
-    [key: string]: (
-      onCreate: Create,
-      onUpdate: Update
-    ) => ToastSnackCreate | ToastSnackUpdate;
+    [key: string]: Method;
   };
 };
 
