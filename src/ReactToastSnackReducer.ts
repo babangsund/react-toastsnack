@@ -1,14 +1,11 @@
-// @flow
-
-'use strict';
-
-import type {Action, ToastSnack} from './ReactToastSnackTypes.js';
-
-function offsets(toastSnacks: Array<ToastSnack>, offset: number) {
+function offsets(
+  toastSnacks: Array<ToastSnack>,
+  offset: number
+): Array<ToastSnack> {
   let totalOffset = offset * 3;
   let index = 0;
 
-  const offsets = {};
+  const offsets: { [key: number]: number } = {};
   offsets[0] = totalOffset;
 
   while (toastSnacks[index + 1]) {
@@ -21,15 +18,15 @@ function offsets(toastSnacks: Array<ToastSnack>, offset: number) {
     index += 1;
   }
 
-  return toastSnacks.map((x, i) => ({...x, offset: offsets[i] || 0}));
+  return toastSnacks.map((x, i) => ({ ...x, offset: offsets[i] || 0 }));
 }
 
 function ReactToastSnackReducer(
   toastSnacks: Array<ToastSnack>,
-  action: Action,
+  action: Action
 ): any {
-  const {queue, input, type} = action;
-  const {max, dismiss, delay, offset} = queue.getSettings();
+  const { queue, input, type } = action;
+  const { max, dismiss, delay, offset } = queue.getSettings();
 
   function dequeue() {
     const isMax = max && toastSnacks.length >= max;
@@ -51,7 +48,7 @@ function ReactToastSnackReducer(
     return null;
   }
 
-  let newToastSnacks: ?Array<ToastSnack> = null;
+  let newToastSnacks: Array<ToastSnack> | null = null;
 
   switch (type) {
     case 'enqueue':
@@ -66,7 +63,7 @@ function ReactToastSnackReducer(
     }
     case 'update': {
       const toastSnack = toastSnacks.find(x => x.id === input.id);
-      const {id: _id, ...properties} = input;
+      const { id: _id, ...properties } = input;
 
       if (toastSnack) {
         newToastSnacks = toastSnacks.map(toastSnack =>
@@ -75,7 +72,7 @@ function ReactToastSnackReducer(
             : {
                 ...toastSnack,
                 ...properties,
-              },
+              }
         );
       }
 
