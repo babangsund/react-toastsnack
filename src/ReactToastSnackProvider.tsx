@@ -21,16 +21,14 @@ const ReactToastSnackProvider: React.FC<ReactToastSnackProviderProps> = ({
     new ReactToastSnackQueue(initial, max, dismiss, delay, height, offset)
   );
 
-  const onCreate = React.useCallback((input: ToastSnackCreate):
-    | string
-    | null => {
+  const onCreate = React.useCallback(input => {
     const queue = Q.current;
     dispatch({ queue, type: 'enqueue', input });
     const last = queue.getLast();
     return last && last.id;
   }, []);
 
-  const onUpdate = React.useCallback((input: ToastSnackUpdate): void => {
+  const onUpdate = React.useCallback(input => {
     const queue = Q.current;
     dispatch({ queue, type: 'update', input });
   }, []);

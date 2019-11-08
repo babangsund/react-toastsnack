@@ -15,7 +15,7 @@ type ToastSnackUpdate = {
 } & ToastSnackProperties;
 
 type ToastSnackProperties = {
-  id: string;
+  id?: string;
   open?: boolean;
   height?: number;
 };
