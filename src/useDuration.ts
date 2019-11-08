@@ -6,7 +6,7 @@ function useDuration(
   duration: number,
   onClose: (id: string) => void
 ): void {
-  const timer = React.useRef<NodeJS.Timeout>(0);
+  const timer = React.useRef<NodeJS.Timeout | null>(null);
 
   const startTimer = React.useCallback(() => {
     if (!duration || !onClose) {
@@ -19,7 +19,11 @@ function useDuration(
     if (open) {
       startTimer();
     }
-    return () => clearTimeout(timer.current);
+    return () => {
+      if (timer.current) {
+        clearTimeout(timer.current);
+      }
+    };
   }, [open, startTimer]);
 }
 

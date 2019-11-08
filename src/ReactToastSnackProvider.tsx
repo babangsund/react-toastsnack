@@ -21,13 +21,16 @@ const ReactToastSnackProvider: React.FC<ReactToastSnackProviderProps> = ({
     new ReactToastSnackQueue(initial, max, dismiss, delay, height, offset)
   );
 
-  const onCreate = React.useCallback(input => {
+  const onCreate = React.useCallback((input: ToastSnackCreate):
+    | string
+    | null => {
     const queue = Q.current;
     dispatch({ queue, type: 'enqueue', input });
-    return queue.getLast() ?.id;
+    const last = queue.getLast();
+    return last && last.id;
   }, []);
 
-  const onUpdate = React.useCallback(input => {
+  const onUpdate = React.useCallback((input: ToastSnackUpdate): void => {
     const queue = Q.current;
     dispatch({ queue, type: 'update', input });
   }, []);
@@ -46,10 +49,13 @@ const ReactToastSnackProvider: React.FC<ReactToastSnackProviderProps> = ({
     return {
       create: onCreate,
       update: onUpdate,
-      ...Object.keys(methods).reduce((p: { [key: string]: unknown }, c: string) => {
-        p[c] = methods[c](onCreate, onUpdate);
-        return p;
-      }, {}),
+      ...Object.keys(methods).reduce(
+        (p: { [key: string]: unknown }, c: string) => {
+          p[c] = methods[c](onCreate, onUpdate);
+          return p;
+        },
+        {}
+      ),
     };
   }, [onCreate, onUpdate, methods]);
 
@@ -67,6 +73,6 @@ const ReactToastSnackProvider: React.FC<ReactToastSnackProviderProps> = ({
       })}
     </ReactToastSnackContext.Provider>
   );
-}
+};
 
 export default ReactToastSnackProvider;
