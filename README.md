@@ -6,21 +6,21 @@ An unopinionated notification queue for React
 
 Using [npm](https://www.npmjs.com/):
 
-    $ npm install --save react-toastsnack
+    $ npm install react-toastsnack
 
 Using [yarn](https://yarnpkg.com/):
 
     $ yarn add react-toastsnack
 
-
 Then with a module bundler like [webpack](https://webpack.github.io/), use as you would anything else:
 
 ```js
 // Using ES6 Modules
-import { useToastSnack } from "react-toastsnack"
+import { useToastSnack } from 'react-toastsnack';
 // using CommonJS modules
-const useToastSnack = require("react-toastsnack").useToastSnack
+const useToastSnack = require('react-toastsnack').useToastSnack;
 ```
+
 ## Usage
 
 At the top-level of your application, import the `ReactToastSnackProvider` module.
@@ -28,7 +28,7 @@ At the top-level of your application, import the `ReactToastSnackProvider` modul
 ```jsx
 // AppContext.js
 import React from 'react';
-import { ReactToastSnackProvider } from "react-toastsnack";
+import { ReactToastSnackProvider } from 'react-toastsnack';
 
 function AppContext() {
   return (
@@ -39,16 +39,16 @@ function AppContext() {
 }
 ```
 
-The provider *provides* (ahem) you with a set of parameters:
+The provider _provides_ (ahem) you with a set of parameters:
 
-* [`renderer`](#renderer) *required*
-* [`methods`](#methods) *optional*
-* [`dismiss`](#dismiss) *optional*
-* [`initial`](#initial) *optional*
-* [`height`](#height) *optional*
-* [`offset`](#offset) *optional*
-* [`delay`](#delay) *optional*
-* [`max`](#max) *optional*
+- [`renderer`](#renderer) _required_
+- [`methods`](#methods) _optional_
+- [`dismiss`](#dismiss) _optional_
+- [`initial`](#initial) _optional_
+- [`height`](#height) _optional_
+- [`offset`](#offset) _optional_
+- [`delay`](#delay) _optional_
+- [`max`](#max) _optional_
 
 ### renderer
 
@@ -57,14 +57,14 @@ This prop is required, and is the component used to render a single notification
 
 `Props` provided to the renderer:
 
-* `toastSnack`
-	* `id`
-	* `open`
-	* `offset`
-	* And any other props passed upon creation of the notification.
-* `onUpdate`
-* `onExited`
-* `onClose`
+- `toastSnack`
+  _ `id`
+  _ `open`
+  _ `offset`
+  _ And any other props passed upon creation of the notification.
+- `onUpdate`
+- `onExited`
+- `onClose`
 
 For example, let's say we're using the [material-ui component library](https://material-ui.com/).  
 The `renderer` may look something like this:
@@ -166,7 +166,7 @@ function AppContext() {
         });
 
         promise
-          // If the promise is resolved, 
+          // If the promise is resolved,
           // change the color to `colorSuccess`, update the message
           // and change the duration to 1000
           .then(() => {
@@ -214,14 +214,16 @@ function Elsewhere() {
   // to display a loading notification, which will change whenever the request responds
 
   return (
-    <button onClick={() => {
-      toastSnack.promise({
-        promise: fetch(puppies_url, { method: "POST" })
-      })
-    }}>
+    <button
+      onClick={() => {
+        toastSnack.promise({
+          promise: fetch(puppies_url, { method: 'POST' }),
+        });
+      }}
+    >
       Click here to buy puppies
     </button>
-  )
+  );
 }
 ```
 
@@ -269,4 +271,4 @@ Default: `null`
 react-toastsnack is built and maintained by **babangsund**.  
 [@blog](https://babangsund.com/).  
 [@github](https://github.com/babangsund).  
-[@twitter](https://twitter.com/babangsund).  
+[@twitter](https://twitter.com/babangsund).
