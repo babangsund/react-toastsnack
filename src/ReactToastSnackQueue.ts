@@ -1,3 +1,4 @@
+import nextId from './nextId';
 import { DEFAULT_DELAY, DEFAULT_HEIGHT, DEFAULT_OFFSET } from './Constants';
 
 class ReactToastSnackQueue implements ToastSnackQueue {
@@ -71,11 +72,7 @@ class ReactToastSnackQueue implements ToastSnackQueue {
   }
 
   formatInput(input: ToastSnackCreate): ToastSnack {
-    const id =
-      typeof input.id === 'string'
-        ? input.id
-        : 'ReactToastSnack:' + ReactToastSnackQueue._count++;
-
+    const id = nextId(input.id);
     return Object.assign(
       {
         id,

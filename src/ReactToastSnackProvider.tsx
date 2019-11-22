@@ -1,6 +1,7 @@
 import React from 'react';
 
 // project
+import nextId from './nextId';
 import ReactToastSnackQueue from './ReactToastSnackQueue';
 import ReactToastSnackContext from './ReactToastSnackContext';
 import ReactToastSnackReducer from './ReactToastSnackReducer';
@@ -23,9 +24,9 @@ const ReactToastSnackProvider: React.FC<ReactToastSnackProviderProps> = ({
 
   const onCreate = React.useCallback(input => {
     const queue = Q.current;
-    dispatch({ queue, type: 'enqueue', input });
-    const last = queue.getLast();
-    return last && last.id;
+    const id = nextId(input.id);
+    dispatch({ queue, type: 'enqueue', input: { ...input, id } });
+    return id;
   }, []);
 
   const onUpdate = React.useCallback(input => {
