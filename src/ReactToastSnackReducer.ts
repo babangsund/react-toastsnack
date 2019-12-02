@@ -9,8 +9,8 @@ function offsets(
   offsets[0] = totalOffset;
 
   while (toastSnacks[index + 1]) {
-    const prevHeight = toastSnacks[index + 1].height;
-    const newOffset = totalOffset + prevHeight + offset;
+    const newHeight = toastSnacks[index].height;
+    const newOffset = totalOffset + newHeight + offset;
 
     offsets[index + 1] = newOffset;
 
